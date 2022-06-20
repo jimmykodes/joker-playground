@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>JK REPL</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.5/codemirror.min.css"
+        integrity="sha512-uf06llspW44/LZpHzHT6qBOIVODjWtv4MxCricRxkzvopAlSWnTf6hpZTFxuuZcuNE9CBQhqE0Seu1CoRk84nQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.5/theme/material-palenight.min.css"
+        crossorigin="anonymous" referrerpolicy="no-referrer" /><link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.5/theme/material-darker.min.css"
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div id="header">
+  <h3>REPL</h3>
+</div>
+<div id="body">
+  <div id="input"></div>
+  <div id="output"></div>
+</div>
+<div id="footer">
+  <button id="clear" onclick="clearCode()">Clear</button>
+  <button id="run" onclick="runCode()">Run</button>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.5/codemirror.min.js"
+        integrity="sha512-hG/Qw6E14LsVUaQRSgw0RrFA1wl5QPG1a4bCOUgwzkGPIVFsOPUPpbr90DFavEEqFMwFXPVI0NS4MzKsInlKxQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.5/mode/javascript/javascript.min.js"
+        integrity="sha512-I6CdJdruzGtvDyvdO4YsiAq+pkWf2efgd1ZUSK2FnM/u2VuRASPC7GowWQrWyjxCZn6CT89s3ddGI+be0Ak9Fg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="js/wasm_exec.js"></script>
+<script>
+  function runCode() {
+    const o = run(input.getValue())
+    const err = errors().replaceAll("@@", "\n")
+    output.setValue(`${o}\n${err}`)
+  }
+  function clearCode() {
+    input.setValue("")
+    output.setValue("")
+  }
+  const go = new Go()
+  WebAssembly.instantiateStreaming(fetch("js/main.wasm"), go.importObject).then((result) => {
+    go.run(result.instance)
+  })
+  const output = CodeMirror(document.getElementById("output"), {
+    mode: "text",
+    theme: "material-darker",
+    readOnly: true,
+  })
+  const input = CodeMirror(document.getElementById("input"), {
+    mode: "javascript",
+    theme: "material-palenight",
+    lineNumbers: true,
+    indentWithTabs: true,
+    autofocus: true,
+    extraKeys: {
+      "Cmd-Enter": runCode
+    },
+    value: `fn add(x, y) {
+  return x + y;
+};
+
+let res = add(5, 8);
+
+print(res);
+`
+  })
+</script>
+</body>
+</html>

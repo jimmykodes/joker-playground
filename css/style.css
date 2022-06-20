@@ -1,0 +1,78 @@
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #212432;
+
+}
+h3 {
+    padding-left: 30px;
+    padding-top: 15px;
+    margin: 0;
+}
+
+button {
+    margin: 12px 5px;
+    border-style: solid;
+    border-width: 1px;
+    border-radius: 10px;
+    width: 80px;
+    background-color: rgba(0,0,0,0);
+}
+
+#run {
+    border-color: #7da4f5;
+    color: #7da4f5;
+}
+
+#clear {
+    border-color: #a65862;
+    color: #a65862;
+}
+#run:hover {
+    border-color: #afc4ed;
+    color: #afc4ed;
+    cursor: pointer;
+}
+
+#clear:hover{
+    border-color: #c78990;
+    color: #c78990;
+    cursor: pointer;
+}
+
+#header {
+    color: #a0a5c5;
+    height: 50px;
+    width: 100%;
+    border-bottom: #4d4f55 1px solid;
+}
+
+#footer {
+    height: 60px;
+    display: flex;
+    justify-content: end;
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+}
+
+#body {
+    display: flex;
+    width: 100%;
+    height: calc(100vh - 110px);
+    border-bottom: #4d4f55 1px solid;
+
+}
+
+#input, #output {
+    width: 50vw;
+    height: 100%;
+}
+
+#input {
+    border-right: #4d4f55 1px solid;
+}
+
+.CodeMirror {
+    height: 100%;
+}
