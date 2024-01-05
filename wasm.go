@@ -5,15 +5,13 @@ import (
 	"strings"
 	"syscall/js"
 
-	"github.com/jimmykodes/jk/evaluator"
-	"github.com/jimmykodes/jk/lexer"
-	"github.com/jimmykodes/jk/object"
-	"github.com/jimmykodes/jk/parser"
+	"github.com/jimmykodes/joker/evaluator"
+	"github.com/jimmykodes/joker/lexer"
+	"github.com/jimmykodes/joker/object"
+	"github.com/jimmykodes/joker/parser"
 )
 
-var (
-	errors []string
-)
+var errors []string
 
 func main() {
 	c := make(chan struct{}, 0)
