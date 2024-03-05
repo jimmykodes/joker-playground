@@ -3,7 +3,7 @@
 
 <head>
   <meta charset="UTF-8">
-  <title>JK REPL</title>
+  <title>Joker</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.5/codemirror.min.css"
     integrity="sha512-uf06llspW44/LZpHzHT6qBOIVODjWtv4MxCricRxkzvopAlSWnTf6hpZTFxuuZcuNE9CBQhqE0Seu1CoRk84nQ=="
     crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -17,13 +17,14 @@
 
 <body>
   <div id="header">
-    <h3>REPL</h3>
+    <h3>Joker sandbox</h3>
   </div>
   <div id="body">
     <div id="input"></div>
     <div id="output"></div>
   </div>
   <div id="footer">
+    <span>Cmd+Enter to run code</span>
     <button id="clear" onclick="clearCode()">Clear</button>
     <button id="run" onclick="runCode()">Run</button>
   </div>
@@ -64,7 +65,7 @@
       },
       value: `fn add(x, y) {
   return x + y;
-};
+}
 
 let res = add(5, 8);
 
